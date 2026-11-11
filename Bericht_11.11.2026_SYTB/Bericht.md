@@ -62,10 +62,24 @@ let "ergebnis2 = $(expr "$1" \* "$2")"
 echo "Ergebnis2 = $ergebnis2"
 ```
 
-Erklärung:
-```sh
-let "ergebnis2 = $(expr "$1" \* "$2")"
+--- 
 
-echo "Ergebnis2 = $ergebnis2"
+### -> Mit $(( ))
+
+-> Im Skript:
+```sh
+let "ergebnis3 = $(($1 * $2))"
+echo "Ergebnis3 = $ergebnis3"
+```
 
 ## Aufgabe 2: 
+
+Übung (Werkstatt Summe)
+Schreibe ein Skript, das die Summe aller Beträge in klassenkassa.csv mit dem Text Werkstatt ermittelt.
+
+Hinweise:
+
+Mit paste -sd+ werden Zeilen zu einem Ausdruck der Form 15+13+42+23 zusammengefasst.
+Verwende arithmetic expansion ($(( EXPR ))), um das Ergebnis auszurechnen.
+Lösung 397
+
