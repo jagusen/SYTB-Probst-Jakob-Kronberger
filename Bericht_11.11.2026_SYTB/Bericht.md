@@ -24,13 +24,7 @@ let "ergebnis = $1 * $2"
 echo "Ergebnis =  $ergebnis"
 ```
 
-Erklärung: 
-```sh
-let "ergebnis = $1 * $2" -> sorgt dafür dass die `ergebnis Variable das `Produkt aus dem ersten Argument multipliziert dem zweiten Argument ist
-
-echo "Ergebnis =  $ergebnis" -> Das ist die Ausgabe , das $ Zeichen vor ergebnis gibt den Inhalt der ergebnis Variable aus 
-```
-
+-> Hier multiplizierst du einfach die beiden Argumente miteinander und speicherst das Ergebnis in der Variable `ergebnis`. Danach wird das Produkt ausgegeben
 
 --- 
 
@@ -41,16 +35,10 @@ chmod u+x Skript.sh
 ./Skript.sh 5 3 
 ```
 
-Erklärung:
-```sh
-chmod u+x Skript.sh -> Gibt dem User Ausführrechte für das Skript
+-> Zuerst holst du dir Ausführrechte mit `chmod u+x`. Mit `./` wird das Skript ausgeführt
 
-./Skript.sh 5 3 -> ./ führt das Skript aus und 5 und 3 sind Zahlen die wir für $1 und $2 einsetzen
-```
 
 Zweite Mögliche Ausgabe:
-
-
 
 --- 
 
@@ -61,6 +49,7 @@ Zweite Mögliche Ausgabe:
 let "ergebnis2 = $(expr "$1" \* "$2")"
 echo "Ergebnis2 = $ergebnis2"
 ```
+-> Hier brauchst du beim Multiplizieren noch ein `\` - Zeichen davor weil das `*` - Zeichen als Wildcard interpretiert wird und durch die Dateinamen im aktuellen Verzeichnis ersetzt wird
 
 --- 
 
@@ -82,4 +71,54 @@ Hinweise:
 Mit paste -sd+ werden Zeilen zu einem Ausdruck der Form 15+13+42+23 zusammengefasst.
 Verwende arithmetic expansion ($(( EXPR ))), um das Ergebnis auszurechnen.
 Lösung 397
+
+-> Im Skript
+```sh
+let "rechnen = $(grep "Werkstatt" klassenkassa.csv | cut -d ',' -f3 | paste -sd+)"
+echo "Summe = $((rechnen))"
+```
+
+-> Zuerst filterst du alle Zeilen mit dem Wort `Werkstatt` heraus. Mit `cut` nimmst du dir die 3.Spalte heraus die du zum berechnen brauchst.`-d` gibt das Trennzeichen an.Mit `paste -sd+` werden die Zahlen zusammengefügt.
+-> Danach wird das Ergebnis ausgegeben
+
+## Aufgabe 3
+
+Übung (Zeitmessung)
+Schreibe 2 Skripts: time_start.sh und time_stop.sh. Bei Aufruf von time_stop.sh wird die Anzahl der Sekunden ausgegeben, die seit dem letzten Aufruf von time_start.sh vergangen sind.
+
+Hinweise: Speichere die Zeit in time_start.sh in einer Datei.
+
+1. 2 Skripte anlegen (time_start.sh , timestop.sh)
+
+2. Eingabe in time_start.sh
+```sh
+Time1=$(date +%s)
+echo "$Time1" > start_z.txt
+```
+-> Es wird zuerst die Zeit in sekunden umgerechnet und dann in der Variable `Time1` gespeichert. Danach wird eine Text-Datei erstellt in der der Wert der Variable `Time1` gespeichert wird
+
+3. Eingabe in time_stop.sh
+```sh
+zeit_von_timestarts=$(cat start_z.txt)
+Time2=$(date +%s);
+
+ vergangene_zeit=$(expr "$Time2" - "$Time1")
+
+echo "Vergangene Zeit: $vergangene_zeit"
+```
+-> Der Inhalt von der Textdatei `start_z.txt` wird in die Variable `zeit_von_timestarts` gespeichert. Dann wird andere Zeit `Time2` berechnet. Danach wird nur noch die Differenz berechnet und ausgegeben
+
+4. Gib beiden Skripten Ausführrechte. Führe zuerst time_start.sh aus dann time_stop.sh. 
+-> Eingabe im Terminal
+```sh
+./time_start.sh
+./time_stop.sh
+Vergangene Zeit: 12
+```
+
+
+## Aufgabe 4
+
+Übung (Zufallszahl)
+Challenge: $RANDOM erzeugt Zahlen zwischen 0 und 32767. Das ist nicht immer hilfreich. Schreibe ein Skript random.sh, bei dem über 2 Grenzen (Argumente) der gewünschte Wertebereich vorgegeben werden kann. Zum Beispiel generiert ./random.sh 10 45 eine zufällige Zahl im Bereich von 10 bis 45 (jeweils inklusive).
 
