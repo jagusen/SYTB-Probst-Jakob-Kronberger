@@ -116,9 +116,6 @@ echo "Vergangene Zeit: $vergangene_zeit"
 Vergangene Zeit: 12
 ```
 
+* Anmerkung: Bei der Nummer 2 habe ich einmal KI benutzt weil ich nicht wusste wie ich mir Werkstatt rausholen kann
 
-## Aufgabe 4
-
-Übung (Zufallszahl)
-Challenge: $RANDOM erzeugt Zahlen zwischen 0 und 32767. Das ist nicht immer hilfreich. Schreibe ein Skript random.sh, bei dem über 2 Grenzen (Argumente) der gewünschte Wertebereich vorgegeben werden kann. Zum Beispiel generiert ./random.sh 10 45 eine zufällige Zahl im Bereich von 10 bis 45 (jeweils inklusive).
 
